@@ -5,7 +5,12 @@ from langchain.chains.summarize import load_summarize_chain
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 from transformers import pipeline
 import torch
+
 import base64
+import os
+
+if not os.path.exists("data"):
+    os.makedirs("data")
 
 # model and tokenizer loading
 checkpoint = "LaMini-Flan-T5-248M"
@@ -70,7 +75,8 @@ def main():
     if uploaded_file is not None:
         if st.button("Summarize"):
             col1, col2 = st.columns(2)
-            filepath = "data/"+uploaded_file.name
+           filepath = "data/" + uploaded_file.name
+
             with open(filepath, "wb") as temp_file:
                 temp_file.write(uploaded_file.read())
             with col1:
